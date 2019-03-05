@@ -11,11 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190305171420) do
+ActiveRecord::Schema.define(version: 20190305232103) do
 
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
+  end
+
+  create_table "users_vinyls", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "vinyl_id"
+  end
+
+  create_table "vinyls", force: :cascade do |t|
+    t.string  "artist"
+    t.string  "album_name"
+    t.string  "record_label"
+    t.integer "year_released"
+    t.string  "genre"
   end
 
 end
