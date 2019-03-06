@@ -1,7 +1,9 @@
 <% @dbvinyls.reverse.each do |vinyl| %>
-  <h1><%= vinyl.artist %></h1>
-  <h1><%= vinyl.album_name %></h1>
-  <h1><%= vinyl.record_label %></h1>
-  <h1><%= vinyl.year_released %></h1>
-  <h1><%= vinyl.genre %></h1>
+  <h1>Artist: <%= vinyl.artist %></h1>
+  <h1>Album Name: <%= vinyl.album_name %></h1>
+  <h1>Record Label: <%= vinyl.record_label %></h1>
+  <h1>Year: <%= vinyl.year_released %></h1>
+  <h1>Genre: <%= vinyl.genre %></h1>
+  <h1>Created by: <%=User.find_by(id: vinyl.user_id).username%></h1>
+  <h3><a href='/database/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>/edit'>Edit</a>
 <% end %>

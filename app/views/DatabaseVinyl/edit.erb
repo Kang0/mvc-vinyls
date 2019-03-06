@@ -1,0 +1,10 @@
+<form method="post" action="/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/edit">
+  <input id="hidden" type="hidden" name="_method" value="patch"/>
+  <p>Artist: <input type="text" name="artist" value="<%=@dbvinyl.artist%>"></p>
+  <p>Album Name: <input type="text" name="album_name" value="<%=@dbvinyl.album_name%>"></p>
+  <p>Record Label: <input type="text" name="record_label" value="<%=@dbvinyl.record_label%>"></p>
+  <p>Year: <input type="text" name="year_released" value="<%=@dbvinyl.year_released%>"></p>
+  <p>Genre: <input type="text" name="genre" value="<%=@dbvinyl.genre%>"></p>
+  <input type="submit" value="Submit Edit"/>
+
+</form>
