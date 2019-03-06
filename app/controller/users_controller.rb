@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect '/vinyls'
+      redirect "/users/#{@user.slug}"
     else
       redirect '/login'
     end
@@ -43,6 +43,16 @@ class UsersController < ApplicationController
       redirect '/login'
     else
       redirect '/login'
+    end
+  end
+
+  get '/users/:user_slug' do
+    @user = User.find_by_slug(params[:user_slug])
+
+    if @user.id == session[:user_id]
+      erb :'/users/homepage'
+    else
+      erb :'/users/error', locals: {message: "Please note that the user may only look at this specific homepage"}
     end
   end
 

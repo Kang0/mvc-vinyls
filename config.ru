@@ -7,5 +7,4 @@ end
 use Rack::MethodOverride
 use UsersController
 use VinylsController
-use DiscogsController
 run ApplicationController
