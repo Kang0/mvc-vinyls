@@ -50,6 +50,7 @@ class UsersController < ApplicationController
     @user = User.find_by_slug(params[:user_slug])
 
     if @user.id == session[:user_id]
+      @all_vinyls = UserVinyl.where(user_id: @user.id)
       erb :'/users/homepage'
     else
       erb :'/users/error', locals: {message: "Please note that the user may only look at this specific homepage"}

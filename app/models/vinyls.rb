@@ -1,6 +1,6 @@
 class Vinyl < ActiveRecord::Base
-  has_many :users_vinyls
-  has_many :users, :through => :users_vinyls
+  has_many :user_vinyls
+  has_many :users, :through => :user_vinyls
 
   def slug_artist
     artist.downcase.gsub(" ","-")

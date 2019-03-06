@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
-  has_many :users_vinyls
-  has_many :vinyls, :through => :users_vinyls
+  has_many :user_vinyls
+  has_many :vinyls, :through => :user_vinyls
 
   def slug
     username.downcase.gsub(" ","-")

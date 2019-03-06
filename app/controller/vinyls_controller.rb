@@ -23,7 +23,10 @@ class VinylsController < ApplicationController
       redirect '/vinyls/new'
     else
       @vinyl = Vinyl.create(:artist => params[:artist], :album_name => params[:album_name], :record_label => params[:record_label], :year_released => params[:year_released], :genre => params[:genre])
-      UsersVinyls.create(:user_id => session[:user_id], :vinyl_id => @vinyl.id)
+      @user = User.find_by(session[:id])
+      @user_vinyls = UserVinyl.new
+      @vinyl.user_vinyls << @user_vinyls
+      @user.user_vinyls << @user_vinyls
       redirect "/vinyls/#{@vinyl.slug_artist}/#{@vinyl.slug_album}"
     end
   end
