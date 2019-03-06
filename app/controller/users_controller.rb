@@ -14,13 +14,13 @@ class UsersController < ApplicationController
     else
       @user = User.create(:username => params[:username], :password => params[:password])
       session[:user_id] = @user.id
-      redirect '/vinyls'
+      redirect "/users/#{@user.slug}"
     end
   end
 
   get '/login' do
     if logged_in?
-      redirect '/vinyls'
+      redirect "users/#{current_user.slug}"
     else
       erb :'/users/login'
     end
