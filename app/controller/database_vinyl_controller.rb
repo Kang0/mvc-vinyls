@@ -53,8 +53,13 @@ class DatabaseVinylController < ApplicationController
   patch '/database/:artist_slug/:album_slug/edit' do
     @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
     @dbvinyl.update(artist: params[:artist], album_name: params[:album_name], record_label: params[:record_label], year_released: params[:year_released], genre: params[:genre])
-    binding.pry
     redirect "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
+  end
+
+  delete '/database/:artist_slug/:album_slug/delete' do
+    @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
+    @dbvinyl.delete
+    redirect '/database/vinyls'
   end
 
 end

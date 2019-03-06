@@ -1,1 +1,5 @@
-<h1><%=@dbvinyl.album_name%></h1>
+<%@dbvinyl.each do |vinyl|%>
+
+<h1><a href="/database/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%=vinyl.album_name%></a></h1>
+
+<%end%>

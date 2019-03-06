@@ -10,7 +10,14 @@ class DatabaseVinyl < ActiveRecord::Base
   end
 
   def self.find_by_artist_slug(slug)
-    DatabaseVinyl.all.find{|vinyl| vinyl.slug_artist == slug}
+    @artist = []
+    DatabaseVinyl.find_each do |vinyl|
+      #have to sandwich, its returning nil
+      if vinyl.slug_artist == slug
+        @artist << vinyl
+      end
+    end
+    @artist
   end
 
   def self.find_by_album_slug(slug)
