@@ -1,6 +1,6 @@
 <h1><%=@user.username%></h1>
 
-<% if @all_vinyls == nil%>
+<% if @all_vinyls.empty?%>
   <h1>Welcome to your homepage</h1>
 <% else %>
   <% @all_vinyls.each do |vinyl| %>
