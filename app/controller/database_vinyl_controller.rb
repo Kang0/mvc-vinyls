@@ -8,6 +8,17 @@ class DatabaseVinylController < ApplicationController
     end
   end
 
+  post '/save_image' do
+    @filename = params[:file][:filename]
+    file = params[:file][:tempfile]
+
+    File.open("./public/images/#{@filename}", 'wb') do |f|
+      f.write(file.read)
+    end
+
+    erb :show_image
+  end
+
   post '/database/new' do
     if params[:artist].empty? | params[:album_name].empty? | params[:year_released].empty?
       redirect '/database/new'
