@@ -19,12 +19,12 @@ class DatabaseVinylController < ApplicationController
   end
 
   post '/save/:artist_slug/:album_slug' do
-    @dbvinyl = DatabaseVinyl.find_by_artist_slug(params[:artist_slug]).first
+    @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
 
-      img = Image.new
-      img.image = params[:file]
-      img.database_vinyl = @dbvinyl
-      img.save
+    img = Image.new
+    img.image = params[:file]
+    img.database_vinyl = @dbvinyl
+    img.save
 
     redirect to "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
   end
@@ -42,7 +42,6 @@ class DatabaseVinylController < ApplicationController
 
   get '/database/:artist_slug/:album_slug' do
     @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
-
     erb :'/DatabaseVinyl/show_album'
   end
 
@@ -67,7 +66,6 @@ class DatabaseVinylController < ApplicationController
     @image = Image.find_by(database_vinyl_id: @dbvinyl.id)
     @image.remove_image!
     @image.delete
-    binding.pry
 
     redirect "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}/edit"
   end
@@ -75,9 +73,13 @@ class DatabaseVinylController < ApplicationController
   delete '/database/:artist_slug/:album_slug/delete' do
     @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
     @image = Image.find_by(database_vinyl_id: @dbvinyl.id)
-    @image.remove_image!
-    @dbvinyl.delete
-    @image.delete
+    if @image == nil
+      @dbvinyl.delete
+    else
+      @image.remove_image!
+      @dbvinyl.delete
+      @image.delete
+    end
     redirect '/database/vinyls'
   end
 
