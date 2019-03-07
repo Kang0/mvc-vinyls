@@ -1,4 +1,6 @@
 require 'bundler'
+require "carrierwave"
+require "carrierwave/orm/activerecord"
 
 Bundler.require
 
