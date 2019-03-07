@@ -1,5 +1,6 @@
 class DatabaseVinyl < ActiveRecord::Base
   belongs_to :users
+  has_one :image
 
   def slug_artist
     artist.downcase.gsub(" ","-")

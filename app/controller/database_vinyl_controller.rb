@@ -15,30 +15,20 @@ class DatabaseVinylController < ApplicationController
       @dbvinyl = DatabaseVinyl.create(:artist => params[:artist], :album_name => params[:album_name], :record_label => params[:record_label], :year_released => params[:year_released], :genre => params[:genre], :user_id => session[:user_id])
 
       redirect "/database/vinyls"
-
-      # @user = User.find_by(id: session[:user_id])
-      # binding.pry
-      # @user_vinyls = UserVinyl.new
-      # @vinyl.user_vinyls << @user_vinyls
-      # @user.user_vinyls << @user_vinyls
-      # redirect "/users/#{@user.slug}"
     end
   end
 
-  post '/save_image' do
-    img = Image.new
-    binding.pry
+  post '/save/:artist_slug/:album_slug' do
+    @dbvinyl = DatabaseVinyl.find_by_artist_slug(params[:artist_slug]).first
 
-    img.image = params[:file]
-    img.save
+      img = Image.new
+      img.image = params[:file]
+      img.database_vinyl = @dbvinyl
+      img.save
 
-    redirect '/show_image'
+    redirect to "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
   end
 
-  get '/show_image' do
-    @image = Image.find(1)
-    erb :show_image
-  end
 
   get '/database/vinyls' do
     @dbvinyls = DatabaseVinyl.all
@@ -52,6 +42,7 @@ class DatabaseVinylController < ApplicationController
 
   get '/database/:artist_slug/:album_slug' do
     @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
+
     erb :'/DatabaseVinyl/show_album'
   end
 
@@ -71,9 +62,22 @@ class DatabaseVinylController < ApplicationController
     redirect "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
   end
 
+  delete '/database/:artist_slug/:album_slug/image/delete' do
+    @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
+    @image = Image.find_by(database_vinyl_id: @dbvinyl.id)
+    @image.remove_image!
+    @image.delete
+    binding.pry
+
+    redirect "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}/edit"
+  end
+
   delete '/database/:artist_slug/:album_slug/delete' do
     @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
+    @image = Image.find_by(database_vinyl_id: @dbvinyl.id)
+    @image.remove_image!
     @dbvinyl.delete
+    @image.delete
     redirect '/database/vinyls'
   end
 

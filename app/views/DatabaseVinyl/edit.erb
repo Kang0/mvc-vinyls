@@ -9,10 +9,19 @@
 </form>
 <form method="post" action="/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/delete">
   <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete">
+  <input type="submit" value="Delete Vinyl">
 </form>
 <br>
-<form action='/save_image' method="post" enctype="multipart/form-data">
+<% if @dbvinyl.image == nil %>
+  <br>
+<% else %>
+  <img src="<%=@dbvinyl.image.image.url%>">
+  <form action = "/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/image/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Album Cover">
+  </form>
+<%end%>
+<form action='/save/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>' method="post" enctype="multipart/form-data">
   <input type="file" name="file" class='form-control'>
   <input type="submit" value="Upload Album Cover Image">
 </form>

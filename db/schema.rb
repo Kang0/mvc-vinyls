@@ -23,8 +23,11 @@ ActiveRecord::Schema.define(version: 20190307011458) do
   end
 
   create_table "images", force: :cascade do |t|
-    t.string "image"
+    t.string  "image"
+    t.integer "database_vinyl_id"
   end
+
+  add_index "images", ["database_vinyl_id"], name: "index_images_on_database_vinyl_id"
 
   create_table "user_vinyls", force: :cascade do |t|
     t.integer "user_id"
