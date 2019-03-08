@@ -8,27 +8,9 @@ class DatabaseVinylController < ApplicationController
     end
   end
 
-  post '/database/new' do
-    if params[:artist].empty? | params[:album_name].empty? | params[:year_released].empty?
-      redirect '/database/new'
-    else
-      @dbvinyl = DatabaseVinyl.create(:artist => params[:artist], :album_name => params[:album_name], :record_label => params[:record_label], :year_released => params[:year_released], :genre => params[:genre], :user_id => session[:user_id])
-
-      redirect "/database/vinyls"
-    end
+  get '/database/search' do
+    erb :'/DatabaseVinyl/search'
   end
-
-  post '/save/:artist_slug/:album_slug' do
-    @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
-
-    img = Image.new
-    img.image = params[:file]
-    img.database_vinyl = @dbvinyl
-    img.save
-
-    redirect to "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
-  end
-
 
   get '/database/vinyls' do
     @dbvinyls = DatabaseVinyl.all
@@ -52,6 +34,59 @@ class DatabaseVinylController < ApplicationController
       erb :'/DatabaseVinyl/edit'
     else
       erb :'/users/error'
+    end
+  end
+
+  post '/database/new' do
+    if params[:artist].empty? | params[:album_name].empty? | params[:year_released].empty?
+      redirect '/database/new'
+    else
+      @dbvinyl = DatabaseVinyl.create(:artist => params[:artist], :album_name => params[:album_name], :record_label => params[:record_label], :year_released => params[:year_released], :genre => params[:genre], :user_id => session[:user_id])
+
+      redirect "/database/vinyls"
+    end
+  end
+
+  post '/save/:artist_slug/:album_slug' do
+    @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
+
+    img = Image.new
+    img.image = params[:file]
+    img.database_vinyl = @dbvinyl
+    img.save
+
+    redirect to "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
+  end
+
+  post '/database/search/result' do
+    #couldn't figure out how to write a ternary operator to go to search or error
+    #has to be a simplier way to write the below
+    if params[:artist_name].empty? && params[:album_name].empty?
+      redirect '/database/search'
+    elsif params[:artist_name].empty?
+      @dbvinyl = DatabaseVinyl.where(album_name: params[:album_name])
+
+      if !@dbvinyl.empty?
+        erb :'/DatabaseVinyl/results'
+      else
+        erb :'/DatabaseVinyl/error'
+      end
+    elsif params[:album_name].empty?
+      @dbvinyl = DatabaseVinyl.where(artist: params[:artist_name])
+
+      if !@dbvinyl.empty?
+        erb :'/DatabaseVinyl/results'
+      else
+        erb :'/DatabaseVinyl/error'
+      end
+    else
+      @dbvinyl = DatabaseVinyl.where(artist: params[:artist_name], album_name: params[:album_name])
+
+      if !@dbvinyl.empty?
+        erb :'/DatabaseVinyl/results'
+      else
+        erb :'/DatabaseVinyl/error'
+      end
     end
   end
 
