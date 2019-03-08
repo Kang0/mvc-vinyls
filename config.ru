@@ -9,7 +9,7 @@ CarrierWave.configure do |config|
 end
 
 use Rack::MethodOverride
-use UsersController
 use VinylsController
+use UsersController
 use DatabaseVinylController
 run ApplicationController
