@@ -3,7 +3,9 @@
   <h1>Album Name: <a href = '/database/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>'><%= vinyl.album_name %></a></h1>
   <h1>Created by: <%=User.find_by(id: vinyl.user_id).username%></h1>
   <h3><a href='/database/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>/edit'>Edit</a></h3>
-  <form method="POST" action="/user/<%=current_user.slug%>/add">
+  <form method="POST" action="/user/add">
+    <input type="hidden" name="artist" value="<%=vinyl.artist%>">
+    <input type="hidden" name="album" value="<%=vinyl.album_name%>">
     <input type="submit" value="Add to Collection">
   </form>
 <% end %>

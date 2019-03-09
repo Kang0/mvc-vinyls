@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
-  has_many :user_vinyls
-  has_many :vinyls, :through => :user_vinyls
+  has_many :vinyls
   has_many :database_vinyls
 
   def slug

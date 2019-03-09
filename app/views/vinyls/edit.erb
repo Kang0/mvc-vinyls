@@ -1,0 +1,23 @@
+<form method="post" action="/database/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/edit">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <p>Artist: <input type="text" name="artist" value="<%=@vinyl.artist%>"></p>
+  <p>Album Name: <input type="text" name="album_name" value="<%=@vinyl.album_name%>"></p>
+  <p>Record Label: <input type="text" name="record_label" value="<%=@vinyl.record_label%>"></p>
+  <p>Year: <input type="text" name="year_released" value="<%=@vinyl.year_released%>"></p>
+  <p>Genre: <input type="text" name="genre" value="<%=@vinyl.genre%>"></p>
+  <input type="submit" value="Submit Edit">
+</form>
+<form method="post" action="/user/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Vinyl">
+</form>
+<br>
+<% if @vinyl.user_image == nil %>
+  <br>
+<% else %>
+  <img src="<%=@vinyl.user_image.image.url%>">
+<%end%>
+<form action='/save/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>' method="post" enctype="multipart/form-data">
+  <input type="file" name="file" class='form-control'>
+  <input type="submit" value="Update Album Cover Image">
+</form>

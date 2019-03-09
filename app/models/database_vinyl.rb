@@ -1,5 +1,5 @@
 class DatabaseVinyl < ActiveRecord::Base
-  belongs_to :users
+  belongs_to :user
   has_one :image
 
   def slug_artist

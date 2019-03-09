@@ -1,3 +1,6 @@
-<h1><%=@album.artist%></h1>
-<h2><%=@album.album_name%></h2>
-<h2><%=@album.genre%></h2>
+<h1><%=@vinyl.artist%></h1>
+<h1><%=@vinyl.album_name%></h1>
+<h1><%=@vinyl.record_label%></h1>
+<h1><%=@vinyl.year_released%></h1>
+<h1><%=@vinyl.genre%></h1>
+<a href='/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/edit'>Edit</a>
