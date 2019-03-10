@@ -4,8 +4,9 @@
 
 <% if !@vinyls.empty? %>
   <% @vinyls.each do |vinyl| %>
-    <h3><%= vinyl.artist %></h3>
-    <h3><%= vinyl.album_name %></h3>
+    <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>"><%= vinyl.artist %></a></h3>
+    <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%= vinyl.album_name %></a></h3>
+    <img src="<%=vinyl.user_image.image.url%>">
   <% end %>
 <% else %>
   <p> Please add vinyl's to your collection!</p>

@@ -1,3 +1,5 @@
 class ImagesUploader < CarrierWave::Uploader::Base
-  storage :file
+  def store_dir
+    'uploads/database'
+  end
 end

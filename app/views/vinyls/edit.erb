@@ -7,7 +7,7 @@
   <p>Genre: <input type="text" name="genre" value="<%=@vinyl.genre%>"></p>
   <input type="submit" value="Submit Edit">
 </form>
-<form method="post" action="/user/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/delete">
+<form method="post" action="/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/delete">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete Vinyl">
 </form>

@@ -1,3 +1,5 @@
+require 'pry'
+
 class DatabaseVinylController < ApplicationController
 
   get '/database/new' do

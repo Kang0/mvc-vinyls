@@ -30,7 +30,7 @@ class Vinyl < ActiveRecord::Base
       if vinyl.slug_artist == artist && vinyl.user_id == user_id
         vinyl
       end
-    end
+    end.compact
   end
 
   def self.find_by_album_and_user_id(album_name:, user_id:)

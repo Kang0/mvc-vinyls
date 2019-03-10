@@ -1,17 +1,16 @@
 class VinylsController < ApplicationController
 
   post '/user/add' do
-    #params - artist => "Kanye West", album => "Graduation"
     @dbvinyl = DatabaseVinyl.find_by(album_name: params[:album])
     @vinyl = Vinyl.create(artist: @dbvinyl.artist, album_name: @dbvinyl.album_name, record_label: @dbvinyl.record_label, year_released: @dbvinyl.year_released, genre: @dbvinyl.genre, user_id: current_user.id)
     if @dbvinyl.image == nil
       @user_image = UserImage.create(vinyl_id: @vinyl.id)
-      @user_image.vinyl = @vinyl
+      @vinyl.user_image = @user_image
     else
-      binding.pry
-      @dbimage = @dbvinyl.image
-      @user_image = UserImage.create(image: @dbimage.image, vinyl_id: @vinyl.id)
-      @user_image.vinyl = @vinyl
+      @user_image = UserImage.new
+      @user_image.image = File.open(@dbvinyl.image.image.file.file)
+      @user_image.save
+      @vinyl.user_image = @user_image
     end
     erb :'/vinyls/add'
   end
@@ -22,6 +21,7 @@ class VinylsController < ApplicationController
 
   get '/user/:username/:artist_slug' do
     @vinyl = Vinyl.find_by_artist_and_user_id(artist: params[:artist_slug], user_id: session[:user_id])
+    binding.pry
 
     erb :'/vinyls/artist'
   end
@@ -40,17 +40,6 @@ class VinylsController < ApplicationController
     else
       erb :'/vinyls/error'
     end
-  end
-
-  post '/save/:artist_slug/:album_slug' do
-    @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
-
-    img = Image.new
-    img.image = params[:file]
-    img.database_vinyl = @dbvinyl
-    img.save
-
-    redirect to "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
   end
 
   post '/database/search/result' do
@@ -100,17 +89,17 @@ class VinylsController < ApplicationController
     redirect "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}/edit"
   end
 
-  delete '/user/:artist_slug/:album_slug/delete' do
+  delete '/user/:username/:artist_slug/:album_slug/delete' do
     @vinyl = Vinyl.find_by_album_and_user_id(album_name: params[:album_slug], user_id: session[:user_id])
-    @image = Image.find_by(database_vinyl_id: @dbvinyl.id)
+    @image = UserImage.find_by(vinyl_id: @vinyl.id)
     if @image == nil
-      @dbvinyl.delete
+      @vinyl.delete
     else
       @image.remove_image!
-      @dbvinyl.delete
+      @vinyl.delete
       @image.delete
     end
-    redirect '/database/vinyls'
+    redirect "/user/#{current_user.slug}"
   end
 
 end
