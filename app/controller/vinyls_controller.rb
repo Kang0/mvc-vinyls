@@ -15,13 +15,12 @@ class VinylsController < ApplicationController
     erb :'/vinyls/add'
   end
 
-  get '/user/vinyl/search' do
-    erb :'/vinyl/search'
+  get '/user/:username/search' do
+    erb :'/vinyls/search'
   end
 
   get '/user/:username/:artist_slug' do
     @vinyl = Vinyl.find_by_artist_and_user_id(artist: params[:artist_slug], user_id: session[:user_id])
-    binding.pry
 
     erb :'/vinyls/artist'
   end
@@ -42,36 +41,47 @@ class VinylsController < ApplicationController
     end
   end
 
-  post '/database/search/result' do
+  post '/user/:username/search/result' do
     #couldn't figure out how to write a ternary operator to go to search or error
     #has to be a simplier way to write the below
     if params[:artist_name].empty? && params[:album_name].empty?
-      redirect '/database/search'
+      redirect "/user/#{current_user.slug}/search"
     elsif params[:artist_name].empty?
-      @dbvinyl = DatabaseVinyl.where(album_name: params[:album_name])
+      @vinyl = Vinyl.where(album_name: params[:album_name])
 
-      if !@dbvinyl.empty?
-        erb :'/DatabaseVinyl/results'
+      if !@vinyl.empty?
+        erb :'/vinyls/result'
       else
-        erb :'/DatabaseVinyl/error'
+        erb :'/vinyls/no_result'
       end
     elsif params[:album_name].empty?
-      @dbvinyl = DatabaseVinyl.where(artist: params[:artist_name])
+      @vinyl = Vinyl.where(artist: params[:artist_name])
 
-      if !@dbvinyl.empty?
-        erb :'/DatabaseVinyl/results'
+      if !@vinyl.empty?
+        erb :'/vinyls/result'
       else
-        erb :'/DatabaseVinyl/error'
+        erb :'/vinyls/no_result'
       end
     else
-      @dbvinyl = DatabaseVinyl.where(artist: params[:artist_name], album_name: params[:album_name])
+      @vinyl = Vinyl.where(artist: params[:artist_name], album_name: params[:album_name])
 
-      if !@dbvinyl.empty?
-        erb :'/DatabaseVinyl/results'
+      if !@vinyl.empty?
+        erb :'/vinyls/result'
       else
-        erb :'/DatabaseVinyl/error'
+        erb :'/vinyls/no_result'
       end
     end
+  end
+
+  post '/user/:username/:artist_slug/:album_slug/image' do
+    @vinyl = Vinyl.find_by_album_and_user_id(album_name: params[:album_slug], user_id: session[:user_id])
+
+    img = UserImage.new
+    img.image = params[:file]
+    img.save
+    @vinyl.user_image = img
+
+    redirect to "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}/edit"
   end
 
   patch '/database/:artist_slug/:album_slug/edit' do
@@ -82,11 +92,11 @@ class VinylsController < ApplicationController
 
   delete '/user/:username/:artist_slug/:album_slug/image/delete' do
     @vinyl = Vinyl.find_by_album_and_user_id(album_name: params[:album_slug], user_id: session[:user_id])
-    @image = Image.find_by(database_vinyl_id: @dbvinyl.id)
+    @image = UserImage.find_by(vinyl_id: @vinyl.id)
     @image.remove_image!
     @image.delete
 
-    redirect "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}/edit"
+    redirect "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}/edit"
   end
 
   delete '/user/:username/:artist_slug/:album_slug/delete' do

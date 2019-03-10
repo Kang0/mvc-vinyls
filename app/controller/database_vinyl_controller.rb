@@ -54,8 +54,8 @@ class DatabaseVinylController < ApplicationController
 
     img = Image.new
     img.image = params[:file]
-    img.database_vinyl = @dbvinyl
     img.save
+    @dbvinyl.image = img
 
     redirect to "/database/#{@dbvinyl.slug_artist}/#{@dbvinyl.slug_album}"
   end

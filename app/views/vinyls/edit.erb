@@ -16,8 +16,12 @@
   <br>
 <% else %>
   <img src="<%=@vinyl.user_image.image.url%>">
+  <form method="post" action="/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/image/delete">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Album Cover">
+  </form>
 <%end%>
-<form action='/save/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>' method="post" enctype="multipart/form-data">
+<form action='/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/image' method="post" enctype="multipart/form-data">
   <input type="file" name="file" class='form-control'>
   <input type="submit" value="Update Album Cover Image">
 </form>
