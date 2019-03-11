@@ -5,13 +5,17 @@
     <title>Record your Records</title>
   </head>
   <body>
-    <img src="images/vinyls-youredm.jpg" alt="Vinyl Header." title="Welcome to your Vinyl Collection" style="width:1000px; height: 200px;"><!-- alt text is for screen readers and search engines -->
+    <img src="/images/vinyls-youredm.jpg" alt="Vinyl Header." title="Welcome to your Vinyl Collection" style="width:1000px; height: 200px;"><!-- alt text is for screen readers and search engines -->
 
     <div class="container">
       <h1>Record your Records!</h1>
     </div>
-
+<%if logged_in?%>
+  <a href="/signup">Sign Up</a> <a href="/login">Login</a> <a href="/user/<%=current_user.slug%>">Homepage</a> <a href="/database/vinyls">Database Homepage</a> <a href="/database/new">Add to Database</a>
+  <a href="/database/search">Search Database</a> <a href="/user/<%=current_user.slug%>/search">Search Own Collection</a> <a href="/logout">Log Out</a>
+<% else %>
   <a href="/signup">Sign Up</a> <a href="/login">Login</a>
+<%end%>
 
     <%= yield %>
 

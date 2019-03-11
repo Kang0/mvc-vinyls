@@ -3,7 +3,7 @@
   <h1>Welcome to your homepage</h1>
 
 <% if !@vinyls.empty? %>
-  <% @vinyls.each do |vinyl| %>
+  <% @vinyls.reverse.each do |vinyl| %>
     <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>"><%= vinyl.artist %></a></h3>
     <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%= vinyl.album_name %></a></h3>
     <img src="<%=vinyl.user_image.image.url%>">
