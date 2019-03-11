@@ -1,6 +1,3 @@
-.backimage {
-  width: 18%;
-  height: 18%;
-  background-repeat: repeat-y;
-  background-image: url("/images/vinyls-youredm.jpg");
+.warpper {
+  margin: 0 auto;
 }
