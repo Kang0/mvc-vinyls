@@ -84,6 +84,8 @@ sub {
   bottom: -.25em;
 }
 img {
+  display: block;
+  height: 50%;
   border: 0;
 }
 svg:not(:root) {
