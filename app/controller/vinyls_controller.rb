@@ -2,17 +2,25 @@ class VinylsController < ApplicationController
 
   post '/user/add' do
     @dbvinyl = DatabaseVinyl.find_by(album_name: params[:album])
-    @vinyl = Vinyl.create(artist: @dbvinyl.artist, album_name: @dbvinyl.album_name, record_label: @dbvinyl.record_label, year_released: @dbvinyl.year_released, genre: @dbvinyl.genre, user_id: current_user.id)
-    if @dbvinyl.image == nil
-      @user_image = UserImage.create(vinyl_id: @vinyl.id)
-      @vinyl.user_image = @user_image
+    @include_vinyl = Vinyl.find_by(artist: params[:artist], album_name: params[:album], user_id: session[:user_id])
+
+    if @include_vinyl
+      erb :'/vinyls/in_collection', :layout => :"layout/internal"
     else
-      @user_image = UserImage.new
-      @user_image.image = File.open(@dbvinyl.image.image.file.file)
-      @user_image.save
-      @vinyl.user_image = @user_image
+      @vinyl = Vinyl.create(artist: @dbvinyl.artist, album_name: @dbvinyl.album_name, record_label: @dbvinyl.record_label, year_released: @dbvinyl.year_released, genre: @dbvinyl.genre, user_id: current_user.id)
+
+      if @dbvinyl.image == nil
+        @user_image = UserImage.create(vinyl_id: @vinyl.id)
+        @vinyl.user_image = @user_image
+      else
+        @user_image = UserImage.new
+        @user_image.image = File.open(@dbvinyl.image.image.file.file)
+        @user_image.save
+        @vinyl.user_image = @user_image
+      end
+
+      erb :'/vinyls/add', :layout => :"layout/internal"
     end
-    erb :'/vinyls/add', :layout => :"layout/internal"
   end
 
   get '/user/:username/search' do
