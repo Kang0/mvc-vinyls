@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Record Your Records</title>
+
+    <!-- Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Page Styling -->
+    <style>
+      html {position: relative;
+            min-height: 100%;
+            }
+      body {font-family: 'Arvo', serif;
+            margin-bottom: 70px;
+            }
+      header {background-image:url('/img/panorama.jpg');
+              background-size: cover;
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              font-color: #FFFFFF;
+              text-align: center;
+              width: 100%;
+              }
+      .navbar {font-size: 1.25em;
+              border: none;
+              background-color: #FFFFFF;
+              width: 100%;
+              }
+      .footer {position: absolute;
+              bottom: 0;
+              width: 100%;
+              font-family: Helvetica, Arial, sans-serif;
+              font-size: 0.75em;
+              color: #909090;
+              background-color: #000000;
+              text-align: center;
+              padding: 10px 0;
+              height: 70px;
+              }
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container-fluid wrapper">
+
+      <!-- *** Header *** -->
+      <header>
+        <div class="row header">
+          <div class="col-sm-12">
+            <h1>Record Your Records</h1>
+            <br></br>
+            <h4>Vinyls</h4>
+          </div> <!-- col-sm-12 -->
+        </div> <!-- row -->
+      </header>
+
+      <!-- *** NAVBAR *** -->
+      <div class="row">
+        <div class="col-sm-12">
+          <nav class="navbar navbar-default">
+            <div class="container">
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/user/<%=current_user.slug%>">Homepage</a> </li>
+                    <li><a href="/database/vinyls">Database Homepage</a> </li>
+                    <li><a href="/database/new">Add to Database</a></li>
+                    <li><a href="/database/search">Search Database</a> </li>
+                    <li><a href="/user/<%=current_user.slug%>/search">Search Own Collection</a> </li>
+                </ul> <!-- ul for lefthand links -->
+
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/">ABOUT</a></li> <!-- Link 1 right -->
+                  <li><a href="/logout">LOG OUT</a></li> <!-- Link 2 right -->
+                </ul> <!-- ul for righthand links -->
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div> <!-- col-sm-12 -->
+      </div> <!-- row -->
+
+      <%= yield %>
+
+      <!-- *** FOOTER *** -->
+      <div class="row footer">
+        <div class="col-sm-12">
+          <p>&copy; 2019 Record Your Records. All Rights Reserved.</p>
+        </div> <!-- col-sm-12 -->
+      </div> <!-- row -->
+
+    </div> <!-- container-fluid -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

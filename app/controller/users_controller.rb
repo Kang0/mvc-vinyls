@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/user/#{current_user.slug}"
     else
-      erb :'/users/signup'
+      erb :'/users/signup', :layout => :"layout/external"
     end
   end
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "user/#{current_user.slug}"
     else
-      erb :'/users/login'
+      erb :'/users/login', :layout => :"layout/external"
     end
   end
 
@@ -51,9 +51,9 @@ class UsersController < ApplicationController
 
     if @user.id == session[:user_id]
       @vinyls = Vinyl.where(user_id: current_user.id)
-      erb :'/users/homepage'
+      erb :'/users/homepage', :layout => :"layout/internal"
     else
-      erb :'/users/error', locals: {message: "Please note that the user may only look at this specific homepage"}
+      erb :'/users/error', :layout => :"layout/internal"
     end
   end
 

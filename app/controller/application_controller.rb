@@ -7,8 +7,14 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "secret"
   end
 
+  ####### HOMEPAGE #########
+
   get '/' do
-    erb :index
+    if logged_in?
+      redirect "/user/#{current_user.slug}"
+    else
+      erb :'/homepage', :layout => :"layout/external"
+    end
   end
 
   helpers do

@@ -4,36 +4,36 @@ class DatabaseVinylController < ApplicationController
 
   get '/database/new' do
     if logged_in?
-      erb :'/DatabaseVinyl/new'
+      erb :'/DatabaseVinyl/new', :layout => :"layout/internal"
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 
   get '/database/search' do
-    erb :'/DatabaseVinyl/search'
+    erb :'/DatabaseVinyl/search', :layout => :"layout/internal"
   end
 
   get '/database/vinyls' do
     @dbvinyls = DatabaseVinyl.all
-    erb :'/DatabaseVinyl/show_database'
+    erb :'/DatabaseVinyl/show_database', :layout => :"layout/internal"
   end
 
   get '/database/:artist_slug' do
     @dbvinyl = DatabaseVinyl.find_by_artist_slug(params[:artist_slug])
-    erb :'/DatabaseVinyl/show_artist'
+    erb :'/DatabaseVinyl/show_artist', :layout => :"layout/internal"
   end
 
   get '/database/:artist_slug/:album_slug' do
     @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
-    erb :'/DatabaseVinyl/show_album'
+    erb :'/DatabaseVinyl/show_album', :layout => :"layout/internal"
   end
 
   get '/database/:artist_slug/:album_slug/edit' do
     @dbvinyl = DatabaseVinyl.find_by_album_slug(params[:album_slug])
 
     if session[:user_id] == @dbvinyl.user_id
-      erb :'/DatabaseVinyl/edit'
+      erb :'/DatabaseVinyl/edit', :layout => :"layout/internal"
     else
       erb :'/users/error'
     end
@@ -69,25 +69,25 @@ class DatabaseVinylController < ApplicationController
       @dbvinyl = DatabaseVinyl.where(album_name: params[:album_name])
 
       if !@dbvinyl.empty?
-        erb :'/DatabaseVinyl/results'
+        erb :'/DatabaseVinyl/results', :layout => :"layout/internal"
       else
-        erb :'/DatabaseVinyl/error'
+        erb :'/DatabaseVinyl/error', :layout => :"layout/internal"
       end
     elsif params[:album_name].empty?
       @dbvinyl = DatabaseVinyl.where(artist: params[:artist_name])
 
       if !@dbvinyl.empty?
-        erb :'/DatabaseVinyl/results'
+        erb :'/DatabaseVinyl/results', :layout => :"layout/internal"
       else
-        erb :'/DatabaseVinyl/error'
+        erb :'/DatabaseVinyl/error', :layout => :"layout/internal"
       end
     else
       @dbvinyl = DatabaseVinyl.where(artist: params[:artist_name], album_name: params[:album_name])
 
       if !@dbvinyl.empty?
-        erb :'/DatabaseVinyl/results'
+        erb :'/DatabaseVinyl/results', :layout => :"layout/internal"
       else
-        erb :'/DatabaseVinyl/error'
+        erb :'/DatabaseVinyl/error', :layout => :"layout/internal"
       end
     end
   end
