@@ -1,5 +1,7 @@
-<% @dbvinyl.each do |vinyl| %>
-  <a href="/database/<%= vinyl.slug_artist %>/<%= vinyl.slug_album %>"><%= vinyl.artist %> - <%= vinyl.album_name %></a>
-  <br>
-  <br>
-<% end %>
+<div class="container-fluid">
+  <% @dbvinyl.each do |vinyl| %>
+    <a href="/database/<%= vinyl.slug_artist %>/<%= vinyl.slug_album %>"><%= vinyl.artist %> - <%= vinyl.album_name %></a>
+    <br>
+    <br>
+  <% end %>
+</div><!--end container-fluid-->

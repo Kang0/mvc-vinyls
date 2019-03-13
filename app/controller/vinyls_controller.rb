@@ -9,15 +9,10 @@ class VinylsController < ApplicationController
     else
       @vinyl = Vinyl.create(artist: @dbvinyl.artist, album_name: @dbvinyl.album_name, record_label: @dbvinyl.record_label, year_released: @dbvinyl.year_released, genre: @dbvinyl.genre, user_id: current_user.id)
 
-      if @dbvinyl.image == nil
-        @user_image = UserImage.create(vinyl_id: @vinyl.id)
-        @vinyl.user_image = @user_image
-      else
-        @user_image = UserImage.new
-        @user_image.image = File.open(@dbvinyl.image.image.file.file)
-        @user_image.save
-        @vinyl.user_image = @user_image
-      end
+      @user_image = UserImage.new
+      @user_image.image = File.open(@dbvinyl.image.image.file.file)
+      @user_image.save
+      @vinyl.user_image = @user_image
 
       erb :'/vinyls/add', :layout => :"layout/internal"
     end
@@ -92,7 +87,7 @@ class VinylsController < ApplicationController
     redirect to "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}/edit"
   end
 
-  patch '/database/:artist_slug/:album_slug/edit' do
+  patch '/user/:username/:artist_slug/:album_slug/edit' do
     @vinyl = Vinyl.find_by_album_and_user_id(album_name: params[:album_slug], user_id: session[:user_id])
     @vinyl.update(artist: params[:artist], album_name: params[:album_name], record_label: params[:record_label], year_released: params[:year_released], genre: params[:genre])
     redirect "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}"

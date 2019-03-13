@@ -1,27 +1,21 @@
-<form method="post" action="/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/edit">
-  <input id="hidden" type="hidden" name="_method" value="patch">
-  <p>Artist: <input type="text" name="artist" value="<%=@dbvinyl.artist%>"></p>
-  <p>Album Name: <input type="text" name="album_name" value="<%=@dbvinyl.album_name%>"></p>
-  <p>Record Label: <input type="text" name="record_label" value="<%=@dbvinyl.record_label%>"></p>
-  <p>Year: <input type="text" name="year_released" value="<%=@dbvinyl.year_released%>"></p>
-  <p>Genre: <input type="text" name="genre" value="<%=@dbvinyl.genre%>"></p>
-  <input type="submit" value="Submit Edit">
-</form>
-<form method="post" action="/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/delete">
-  <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete Vinyl">
-</form>
-<br>
-<% if @dbvinyl.image == nil %>
-  <br>
-<% else %>
-  <img src="<%=@dbvinyl.image.image.url%>">
-  <form action = "/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/image/delete" method="post">
-    <input id="hidden" type="hidden" name="_method" value="delete">
-    <input type="submit" value="Delete Album Cover">
+<div class="container-fluid">
+  <form method="post" action="/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/edit" enctype="multipart/form-data">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <p>Artist: <input type="text" name="artist" value="<%=@dbvinyl.artist%>"></p>
+    <p>Album Name: <input type="text" name="album_name" value="<%=@dbvinyl.album_name%>"></p>
+    <p>Record Label: <input type="text" name="record_label" value="<%=@dbvinyl.record_label%>"></p>
+    <p>Year: <input type="text" name="year_released" value="<%=@dbvinyl.year_released%>"></p>
+    <p>Genre: <input type="text" name="genre" value="<%=@dbvinyl.genre%>"></p>
+    <br>
+    <img src="<%= @dbvinyl.image.image.url %>" height="300" class="img-thumbnail">
+    <br><br>
+    <input type="file" name="file" class='form-control'>
+    <br><br>
+    <input type="submit" value="Submit Edit">
   </form>
-<%end%>
-<form action='/save/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>' method="post" enctype="multipart/form-data">
-  <input type="file" name="file" class='form-control'>
-  <input type="submit" value="Upload Album Cover Image">
-</form>
+  <br>
+  <form method="post" action="/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/delete">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Vinyl">
+  </form>
+</div><!--end container-fluid-->
