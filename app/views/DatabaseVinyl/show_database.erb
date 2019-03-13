@@ -3,11 +3,8 @@
     <div class="row">
       <% @dbvinyls.reverse.each do |vinyl| %>
         <div class="col-sm-2">
-          <% if vinyl.image == nil %>
+          <img src="<%=vinyl.image.image.url%>" height="100">
 
-          <% else %>
-            <img src="<%=vinyl.image.image.url%>" height="100">
-          <% end %>
           <p>Artist: <a href='/database/<%=vinyl.slug_artist%>'><%= vinyl.artist %></a></p>
           <p>Album Name: <a href = '/database/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>'><%= vinyl.album_name %></a></p>
           <p>Created by: <%=User.find_by(id: vinyl.user_id).username%></p>
@@ -20,6 +17,6 @@
             <input type="submit" value="Add to Collection">
           </form>
         </div><!--end col-sm-1-->
-      <% end %>
+      <%end%>
     </div><!--end row-->
 </div><!--end container-->

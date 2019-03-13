@@ -1,12 +1,10 @@
-<h1>Created by: <%=User.find_by(id: @dbvinyl.user_id).username%></h1>
-<%if @dbvinyl.image == nil %>
-  <p>Please upload an album cover</p>
-<%else%>
+<div class="container-fluid" align="center">
+  h1>Created by: <%=User.find_by(id: @dbvinyl.user_id).username%></h1>
   <img src = "<%= @dbvinyl.image.image.url %>">
-<%end%>
-<h1><%=@dbvinyl.artist%></h1>
-<h1><%=@dbvinyl.album_name%></h1>
-<h1><%=@dbvinyl.record_label%></h1>
-<h1><%=@dbvinyl.year_released%></h1>
-<h1><%=@dbvinyl.genre%></h1>
-<a href='/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/edit'>Edit</a>
+  <h1><%=@dbvinyl.artist%></h1>
+  <h1><%=@dbvinyl.album_name%></h1>
+  <h1><%=@dbvinyl.record_label%></h1>
+  <h1><%=@dbvinyl.year_released%></h1>
+  <h1><%=@dbvinyl.genre%></h1>
+  <a href='/database/<%=@dbvinyl.slug_artist%>/<%=@dbvinyl.slug_album%>/edit'>Edit</a>
+</div><!--end container-fluid-->

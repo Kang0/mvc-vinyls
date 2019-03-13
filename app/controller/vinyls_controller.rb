@@ -11,9 +11,15 @@ class VinylsController < ApplicationController
 
       @user_image = UserImage.new
       @user_image.vinyl = @vinyl
-      @user_image.image = File.open(@dbvinyl.image.image.file.file)
-      @user_image.save
-      @vinyl.user_image = @user_image
+
+      if @dbvinyl.image.image.file == nil
+        @user_image.save
+        @vinyl.user_image = @user_image
+      else
+        @user_image.image = File.open(@dbvinyl.image.image.file.file)
+        @user_image.save
+        @vinyl.user_image = @user_image
+      end
 
       erb :'/vinyls/add', :layout => :"layout/internal"
     end

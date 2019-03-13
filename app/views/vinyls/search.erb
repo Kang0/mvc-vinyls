@@ -1,7 +1,9 @@
-<h1>Search Collection for Vinyls</h1>
-<p>Please ensure to write the Artist Name and Album Name with correct capitalization, i.e. "Beyonce", "The Beatles", "DAMN"</p>
-<form method="post" action="/user/<%=current_user.slug%>/search/result">
-<p>Search for Artist Name: <input type="text" name="artist_name"></p>
-<p>Search for Album Name: <input type="text" name="album_name"></p>
-<input type="submit" value="Search">
-</form>
+<div class="container-fluid">
+  <h1>Search Collection for Vinyls</h1>
+  <p>Please ensure to write the Artist Name and Album Name with correct capitalization, i.e. "Beyonce", "The Beatles", "DAMN"</p>
+  <form method="post" action="/user/<%=current_user.slug%>/search/result">
+  <p>Search for Artist Name: <input type="text" name="artist_name"></p>
+  <p>Search for Album Name: <input type="text" name="album_name"></p>
+  <input type="submit" value="Search">
+  </form>
+</div><!--end container-fluid-->

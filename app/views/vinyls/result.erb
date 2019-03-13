@@ -1,5 +1,7 @@
-<% @vinyl.each do |vinyl| %>
-  <h1><a href="/user/<%= current_user.slug %>/<%= vinyl.slug_artist %>/<%= vinyl.slug_album%>"><%= vinyl.artist %> - <%= vinyl.album_name %></a></h1>
-  <br>
-  <br>
-<% end %>
+<div class = "container-fluid">
+  <% @vinyl.each do |vinyl| %>
+    <h1><a href="/user/<%= current_user.slug %>/<%= vinyl.slug_artist %>/<%= vinyl.slug_album%>"><%= vinyl.artist %> - <%= vinyl.album_name %></a></h1>
+    <br>
+    <br>
+  <% end %>
+</div><!--end container-fluid-->
