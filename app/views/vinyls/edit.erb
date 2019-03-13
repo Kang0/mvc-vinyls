@@ -1,29 +1,21 @@
 <div class="container-fluid">
-  <form method="post" action="/database/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/edit">
+  <form method="post" action="/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/edit" enctype="multipart/form-data">
     <input id="hidden" type="hidden" name="_method" value="patch">
     <p>Artist: <input type="text" name="artist" value="<%=@vinyl.artist%>"></p>
     <p>Album Name: <input type="text" name="album_name" value="<%=@vinyl.album_name%>"></p>
     <p>Record Label: <input type="text" name="record_label" value="<%=@vinyl.record_label%>"></p>
     <p>Year: <input type="text" name="year_released" value="<%=@vinyl.year_released%>"></p>
     <p>Genre: <input type="text" name="genre" value="<%=@vinyl.genre%>"></p>
+
+    <img src="<%=@vinyl.user_image.image.url%>" height="300">
+    <br><br>
+    <input type="file" name="file" class='form-control'>
+    <br>
     <input type="submit" value="Submit Edit">
   </form>
+  <br>
   <form method="post" action="/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/delete">
     <input id="hidden" type="hidden" name="_method" value="delete">
     <input type="submit" value="Delete Vinyl">
-  </form>
-  <br>
-  <% if @vinyl.user_image == nil %>
-    <br>
-  <% else %>
-    <img src="<%=@vinyl.user_image.image.url%>">
-    <form method="post" action="/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/image/delete">
-      <input id="hidden" type="hidden" name="_method" value="delete">
-      <input type="submit" value="Delete Album Cover">
-    </form>
-  <%end%>
-  <form action='/user/<%=current_user.slug%>/<%=@vinyl.slug_artist%>/<%=@vinyl.slug_album%>/image' method="post" enctype="multipart/form-data">
-    <input type="file" name="file" class='form-control'>
-    <input type="submit" value="Update Album Cover Image">
   </form>
 </div><!--end container-fluid-->

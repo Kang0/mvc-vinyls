@@ -10,6 +10,7 @@ class VinylsController < ApplicationController
       @vinyl = Vinyl.create(artist: @dbvinyl.artist, album_name: @dbvinyl.album_name, record_label: @dbvinyl.record_label, year_released: @dbvinyl.year_released, genre: @dbvinyl.genre, user_id: current_user.id)
 
       @user_image = UserImage.new
+      @user_image.vinyl = @vinyl
       @user_image.image = File.open(@dbvinyl.image.image.file.file)
       @user_image.save
       @vinyl.user_image = @user_image
@@ -76,30 +77,26 @@ class VinylsController < ApplicationController
     end
   end
 
-  post '/user/:username/:artist_slug/:album_slug/image' do
-    @vinyl = Vinyl.find_by_album_and_user_id(album_name: params[:album_slug], user_id: session[:user_id])
-
-    img = UserImage.new
-    img.image = params[:file]
-    img.save
-    @vinyl.user_image = img
-
-    redirect to "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}/edit"
-  end
-
   patch '/user/:username/:artist_slug/:album_slug/edit' do
     @vinyl = Vinyl.find_by_album_and_user_id(album_name: params[:album_slug], user_id: session[:user_id])
     @vinyl.update(artist: params[:artist], album_name: params[:album_name], record_label: params[:record_label], year_released: params[:year_released], genre: params[:genre])
+
+    if params[:file] == nil
+      redirect "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}"
+    else
+      img = @vinyl.user_image
+      img.remove_image!
+      img.delete
+      new_img = UserImage.new
+      new_img.vinyl = @vinyl
+      new_img.image = params[:file]
+      new_img.save
+      @vinyl.user_image = new_img
+
+      redirect "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}"
+    end
+
     redirect "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}"
-  end
-
-  delete '/user/:username/:artist_slug/:album_slug/image/delete' do
-    @vinyl = Vinyl.find_by_album_and_user_id(album_name: params[:album_slug], user_id: session[:user_id])
-    @image = UserImage.find_by(vinyl_id: @vinyl.id)
-    @image.remove_image!
-    @image.delete
-
-    redirect "/user/#{current_user.slug}/#{@vinyl.slug_artist}/#{@vinyl.slug_album}/edit"
   end
 
   delete '/user/:username/:artist_slug/:album_slug/delete' do

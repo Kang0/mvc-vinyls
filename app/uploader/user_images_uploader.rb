@@ -1,6 +1,6 @@
 class UserImagesUploader < CarrierWave::Uploader::Base
   def store_dir
-    'uploads/user'
+    "uploads/user/#{model.vinyl.user.username}"
   end
 
   def default_url
