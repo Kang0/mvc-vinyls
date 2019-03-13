@@ -17,6 +17,14 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  get '/about' do
+    if logged_in?
+      erb :'/about', :layout => :"layout/internal"
+    else
+      erb :'/about', :layout => :"layout/external"
+    end
+  end
+
   helpers do
     def logged_in?
       !!current_user
