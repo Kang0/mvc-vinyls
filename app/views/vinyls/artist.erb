@@ -2,7 +2,7 @@
   <div class="row">
     <%@vinyl.each do |vinyl|%>
       <div class="col-sm-4">
-        <img src="<%=vinyl.user_image.image.url%>" height="300" class="img-thumbnail">
+        <img src="<%=vinyl.user_image.image.url%>" height="250" class="thumbnail">
 
         <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%=vinyl.album_name%></a></h3>
         <br><br>

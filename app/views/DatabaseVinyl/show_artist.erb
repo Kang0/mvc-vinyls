@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
     <%@dbvinyl.each do |vinyl|%>
-      <div class="col-sm-4">
-        <img src="<%=vinyl.image.image.url%>" height="300" class="img-thumbnail">
+      <div class="col-sm-3">
+        <img src="<%=vinyl.image.image.url%>" height="210" class="thumbnail">
         <br>
-        <h2><a href="/database/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%=vinyl.album_name%></a></h2>
+        <h3><a href="/database/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%=vinyl.album_name%></a></h3>
       </div><!--end col-sm-4-->
     <%end%>
   </div><!--end row-->
