@@ -8,9 +8,9 @@
     <div class="row">
       <% @vinyls.reverse.each do |vinyl| %>
         <div class="col-sm-2" align="center">
-          <img src="<%=vinyl.user_image.image.url%>" height="300" class="thumbnail">
-          <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>"><%= vinyl.artist %></a></h3>
-          <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%= vinyl.album_name %></a></h3>
+          <img src="<%=vinyl.user_image.image.url%>" height="265" class="img-thumbnail">
+          <h4><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>"><%= vinyl.artist %></a></h4>
+          <h4><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%= vinyl.album_name %></a></h4>
           <a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>/edit">Edit</a>
         </div><!--end col-sm-4-->
       <% end %>

@@ -1,6 +1,6 @@
 <div class="container-fluid" align="center">
-  h1>Created by: <%=User.find_by(id: @dbvinyl.user_id).username%></h1>
-  <img src = "<%= @dbvinyl.image.image.url %>">
+  <h1>Created by: <%=User.find_by(id: @dbvinyl.user_id).username%></h1>
+  <img src="<%= @dbvinyl.image.image.url %>" class="img-thumbnail">
   <h1><%=@dbvinyl.artist%></h1>
   <h1><%=@dbvinyl.album_name%></h1>
   <h1><%=@dbvinyl.record_label%></h1>

@@ -62,36 +62,41 @@
       <header>
         <div class="row header">
           <div class="col-sm-12">
+            <br>
             <h1><strong>Record Your Records</strong></h1>
-            <br><br>
+            <br>
           </div> <!-- col-sm-12 -->
         </div> <!-- row -->
       </header>
 
       <!-- *** NAVBAR *** -->
-      <div class="row">
-        <div class="col-sm-12">
-          <nav class="navbar navbar-default">
-            <div class="container">
-              <!-- Collect the nav links, forms, and other content for toggling -->
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/user/<%=current_user.slug%>">Homepage</a> </li>
-                    <li><a href="/database/vinyls">Database Homepage</a> </li>
-                    <li><a href="/database/new">Add to Database</a></li>
-                    <li><a href="/database/search">Search Database</a> </li>
-                    <li><a href="/user/<%=current_user.slug%>/search">Search Own Collection</a> </li>
-                </ul> <!-- ul for lefthand links -->
+      <div class="container">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/user/<%=current_user.slug%>">Homepage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/database/vinyls">Database Homepage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/database/new">Add to Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/database/search">Search Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/<%=current_user.slug%>/search">Search Own Collection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+          </li>
+        </ul> <!-- ul for lefthand links -->
+      </div><!--end container-->
+      <br>
 
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/">ABOUT</a></li> <!-- Link 1 right -->
-                  <li><a href="/logout">LOG OUT</a></li> <!-- Link 2 right -->
-                </ul> <!-- ul for righthand links -->
-              </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-          </nav>
-        </div> <!-- col-sm-12 -->
-      </div> <!-- row -->
 
       <%= yield %>
 

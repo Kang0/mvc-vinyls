@@ -1,9 +1,12 @@
 <div class="container">
-  <%@vinyl.each do |vinyl|%>
-    <img src="<%=vinyl.user_image.image.url%>" height="300" class="thumbnail">
+  <div class="row">
+    <%@vinyl.each do |vinyl|%>
+      <div class="col-sm-4">
+        <img src="<%=vinyl.user_image.image.url%>" height="300" class="img-thumbnail">
 
-    <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%=vinyl.album_name%></a></h3>
-    <br><br>
-
-  <%end%>
+        <h3><a href="/user/<%=current_user.slug%>/<%=vinyl.slug_artist%>/<%=vinyl.slug_album%>"><%=vinyl.album_name%></a></h3>
+        <br><br>
+      </div><!--end col-sm-4-->
+    <%end%>
+  </div><!--end row-->
 </div><!--end container-->
