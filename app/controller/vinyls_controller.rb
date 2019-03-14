@@ -57,7 +57,7 @@ class VinylsController < ApplicationController
     if params[:artist_name].empty? && params[:album_name].empty?
       redirect "/user/#{current_user.slug}/search"
     elsif params[:artist_name].empty?
-      @vinyl = Vinyl.where(album_name: params[:album_name])
+      @vinyl = Vinyl.where(album_name: params[:album_name], user_id: session[:user_id])
 
       if !@vinyl.empty?
         erb :'/vinyls/result', :layout => :"layout/internal"
@@ -65,7 +65,7 @@ class VinylsController < ApplicationController
         erb :'/vinyls/no_result', :layout => :"layout/internal"
       end
     elsif params[:album_name].empty?
-      @vinyl = Vinyl.where(artist: params[:artist_name])
+      @vinyl = Vinyl.where(artist: params[:artist_name], user_id: session[:user_id])
 
       if !@vinyl.empty?
         erb :'/vinyls/result', :layout => :"layout/internal"
@@ -73,7 +73,7 @@ class VinylsController < ApplicationController
         erb :'/vinyls/no_result', :layout => :"layout/internal"
       end
     else
-      @vinyl = Vinyl.where(artist: params[:artist_name], album_name: params[:album_name])
+      @vinyl = Vinyl.where(artist: params[:artist_name], album_name: params[:album_name], user_id: session[:user_id])
 
       if !@vinyl.empty?
         erb :'/vinyls/result', :layout => :"layout/internal"
